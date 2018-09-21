@@ -33,7 +33,7 @@ public class Test_17_mergeList {
             //下面的操作合并较小的元素
             if (head1.value<head2.value){
                 pointer.next = head1;
-                head1 = head2.next;
+                head1 = head1.next;
             }
             else {
                 pointer.next = head2;
