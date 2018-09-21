@@ -62,7 +62,7 @@ public class Test_18_hasSubTree {
 
         //两个节点的值相同，则分别判断其左子节点和右子节点的值
         if (root1.value==root2.value){
-            return match(root1.left,root2.left)&&match(root1.right,root2.left);
+            return match(root1.left,root2.left)&&match(root1.right,root2.right);
         }
 
         //节点的值不相等就返回false
