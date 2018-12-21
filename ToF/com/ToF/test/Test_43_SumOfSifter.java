@@ -18,12 +18,46 @@ public class Test_43_SumOfSifter {
     * 分析到这里，我们不难发现这是一种递归的思路，递归结束的条件就是最后只剩下一个骰子。
     *
     * */
-    public static void printProbability(int number,int max){
-        if (number<1||max<1)
+    
+    
+       //基于递归（递归实际上是分治法），将n个筛子分为第一个和剩下n个，先计算第1个筛子的每个点数出现的次数，再计算n-1个筛子
+    //计算n-1个的方法和之前一样，先将n-1个筛子分为1个和n-2个
+    public static void solution43_2(int num){
+        if (num<1)
             return;
+        int maxsum = num*6;
+        int[] probalities = new int[maxsum-num+1]; //掷n个筛子点数和的最小值是n，最大值是6*n，所以点数和的情况就是在n到6-n之间
+        for (int i = num;i<=maxsum;i++){
+            probalities[i-num] = 0;
+        }
+        double total = Math.pow(6,num);
+        probality(num,probalities);
+        //计算n~6n每种情况出现的次数的函数
+        for (int i = num;i<=maxsum;i++){
+            double ratio = probalities[i-num]/total;
+            System.out.println(ratio);
+        }
+    }
 
-        int maxSum = number*max;
-        int[] probabilities = new int[maxSum - number + 1];
+    private static void probality(int num, int[] probalities) {
+        //第一个筛子开始
+        for (int i = 1;i<=6;i++){
+            probality(num,num,i,probalities);
+        }
+    }
+
+    private static void probality(int or, int cur, int sum, int[] probalities) {
+     //总共or个筛子，当前第cur个筛子
+        if (cur == 1){
+            //sum - or 数组的长度是6n - n -1，【1】保存的是n，和为s保存在【S-n】中
+            probalities[sum - or]++;
+        }
+        else {
+            for (int i = 1;i<=6;i++){
+                probality(or,cur-1,sum+i,probalities);
+            }
+        }
+            
     }
     
     
